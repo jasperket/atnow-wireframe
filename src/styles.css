@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* DEVEXTREME THEME OVERRIDES */
+/* Button Override - Default Contained */
+.dx-button-default.dx-button-mode-contained {
+  background-color: #0ba3ac !important;
+  border-color: #0ba3ac !important;
+  color: #fff !important;
+}
+.dx-button-default.dx-button-mode-contained.dx-state-hover {
+  background-color: #098e96 !important;
+  border-color: #098e96 !important;
+}
+
+/* Text Editor & Select Box Focus Overrides */
+.dx-texteditor.dx-state-focused {
+  border-color: #0ba3ac !important;
+}
+.dx-texteditor.dx-state-active {
+  border-color: #0ba3ac !important;
+}
+
+/* Common Text Size override for inputs to match previous design */
+.dx-texteditor-input {
+  font-family: 'Inter', sans-serif !important;
+}
