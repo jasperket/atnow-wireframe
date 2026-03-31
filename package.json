@@ -21,6 +21,7 @@
     "devextreme-angular": "25.2.5",
     "devextreme-schematics": "^1.14.2",
     "jest-editor-support": "*",
+    "lucide-angular": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

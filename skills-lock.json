@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-developer": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "computedHash": "a52753c3ca9fef8e0aeeff02b18f6228ee0c885782d89e7cf5861b971d4150f8"
+    },
+    "angular-new-app": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "computedHash": "8f955e71e38ae6f804ca677d441a811bfb0be638fa33a7210ae573d8e9e49de3"
+    }
+  }
+}
