@@ -3,13 +3,16 @@
   <div class="header-toolbar-container">
     <dx-toolbar>
       <dxi-item location="before">
-        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" class="custom-btn teal-btn"></dx-button>
+        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" class="custom-btn teal-btn" (onClick)="onApprove()"></dx-button>
+      </dxi-item>
+       <dxi-item location="before">
+        <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="add" text="NEW" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onNew()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onDelete()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
@@ -36,6 +39,7 @@
       <dxo-selection mode="multiple" showCheckBoxesMode="always"></dxo-selection>
       <dxo-paging [pageSize]="10"></dxo-paging>
       <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="false"></dxo-pager>
+      <dxo-editing [allowUpdating]="!isReadOnly" mode="cell"></dxo-editing>
 
       <dxi-column dataField="orderNo" caption="Order No"></dxi-column>
       <dxi-column dataField="supplier" caption="Supplier"></dxi-column>
