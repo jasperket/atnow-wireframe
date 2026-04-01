@@ -5,10 +5,16 @@ import { Component, Input } from '@angular/core';
   template: `
     <dx-toolbar class="header-toolbar">
       <dxi-item location="before">
-        <div *dxTemplate class="header-item">
+        <div *dxTemplate class="header-item header-nav-group">
           <button class="home-button" routerLink="/dashboard">
             <lucide-icon name="home" class="home-icon" [size]="36" color="#333"></lucide-icon>
           </button>
+          
+          @if (showBackButton) {
+            <button class="home-button" [routerLink]="backRoute">
+              <lucide-icon name="arrow-left" class="home-icon" [size]="36" color="#333"></lucide-icon>
+            </button>
+          }
         </div>
       </dxi-item>
 
@@ -51,6 +57,10 @@ import { Component, Input } from '@angular/core';
       display: flex;
       align-items: center;
       height: 100%;
+    }
+
+    .header-nav-group {
+      gap: 15px;
     }
 
     .home-button {
@@ -104,4 +114,7 @@ import { Component, Input } from '@angular/core';
   `],
   standalone: false
 })
-export class HeaderComponent { }
+export class HeaderComponent { 
+  @Input() showBackButton: boolean = false;
+  @Input() backRoute: string = '/module/procurement';
+}

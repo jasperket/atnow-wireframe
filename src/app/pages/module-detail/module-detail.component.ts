@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-module-detail',
@@ -75,7 +75,7 @@ export class ModuleDetailComponent implements OnInit {
     { id: 'invoice', label: 'Supplier Invoice' },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     const name = this.route.snapshot.paramMap.get('name');
@@ -85,6 +85,18 @@ export class ModuleDetailComponent implements OnInit {
   }
 
   onSubModuleClick(id: string) {
-    console.log('Sub-module clicked:', id);
+    if (this.moduleTitle.toLowerCase() === 'procurement') {
+      if (id === 'order') {
+        this.router.navigate(['/procurement/purchase-order']);
+      } else if (id === 'request') {
+        this.router.navigate(['/procurement/item-setup']);
+      } else if (id === 'canvassing') {
+        this.router.navigate(['/procurement/po-approval']);
+      } else {
+        console.log('Sub-module clicked:', id);
+      }
+    } else {
+      console.log('Sub-module clicked:', id);
+    }
   }
 }

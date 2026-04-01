@@ -1,0 +1,61 @@
+.page-container {
+  height: calc(100vh - 50px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.header-toolbar-container {
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.splitter-wrapper {
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.list-container {
+  height: 100%;
+  padding: 10px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+}
+
+.form-container {
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+::ng-deep .custom-btn.top-btn {
+  border-radius: 20px;
+  margin-right: 10px;
+  border-color: #333;
+  color: #333;
+  font-weight: 500;
+}
+
+::ng-deep .custom-btn.teal-btn-solid {
+  background-color: #0ba3ac;
+  border-color: #0ba3ac;
+  color: #fff;
+}
+
+::ng-deep .custom-btn.teal-btn-solid .dx-icon {
+  color: #fff;
+}
+
+::ng-deep .custom-btn.icon-only {
+  border: none;
+  font-size: 1.2rem;
+}
+
+::ng-deep .search-box {
+  border-radius: 20px;
+  margin-right: 10px;
+}

@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LucideAngularModule } from 'lucide-angular';
-import { DxButtonModule, DxTextBoxModule, DxSelectBoxModule, DxToolbarModule } from 'devextreme-angular';
+import { DxButtonModule, DxTextBoxModule, DxSelectBoxModule, DxToolbarModule, DxDataGridModule, DxDateBoxModule, DxFormModule, DxCheckBoxModule, DxSplitterModule } from 'devextreme-angular';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CardComponent } from './components/card/card.component';
@@ -20,6 +20,11 @@ import { CardComponent } from './components/card/card.component';
     DxTextBoxModule,
     DxSelectBoxModule,
     DxToolbarModule,
+    DxDataGridModule,
+    DxDateBoxModule,
+    DxFormModule,
+    DxCheckBoxModule,
+    DxSplitterModule,
     RouterModule
   ],
   exports: [
@@ -30,6 +35,11 @@ import { CardComponent } from './components/card/card.component';
     DxTextBoxModule,
     DxSelectBoxModule,
     DxToolbarModule,
+    DxDataGridModule,
+    DxDateBoxModule,
+    DxFormModule,
+    DxCheckBoxModule,
+    DxSplitterModule,
     HeaderComponent,
     CardComponent
   ],

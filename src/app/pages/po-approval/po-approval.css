@@ -1,0 +1,46 @@
+.page-container {
+  height: calc(100vh - 50px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-toolbar-container {
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.entry-list-container {
+  flex-grow: 1;
+  padding: 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+::ng-deep .custom-btn {
+  border-radius: 20px;
+  margin-right: 10px;
+  border-color: #333;
+  color: #333;
+  font-weight: 500;
+}
+
+::ng-deep .custom-btn.teal-btn {
+  border-color: #0ba3ac;
+  color: #0ba3ac;
+}
+
+::ng-deep .custom-btn.icon-only {
+  border: none;
+  font-size: 1.2rem;
+}
+
+::ng-deep .search-box {
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+::ng-deep .search-box .dx-texteditor-input-container {
+  border-radius: 20px;
+}

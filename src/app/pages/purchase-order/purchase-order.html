@@ -1,0 +1,106 @@
+<app-header [showBackButton]="true"></app-header>
+
+<div class="page-container">
+  <div class="header-toolbar-container">
+    <dx-toolbar>
+      <dxi-item location="before">
+        <dx-button icon="add" text="NEW" stylingMode="contained" class="custom-btn teal-btn-solid"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="event" text="DATE" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+  <div class="splitter-wrapper">
+    <dx-splitter orientation="vertical">
+      <dxi-item [size]="'55%'">
+        <dx-splitter orientation="horizontal">
+          <dxi-item [size]="'65%'">
+            <div class="pane-content list-pane">
+              <dx-data-grid
+                [dataSource]="orders"
+                [showBorders]="true"
+                [rowAlternationEnabled]="true"
+                height="100%"
+                (onSelectionChanged)="onSelectionChanged($event)">
+                <dxo-selection mode="single"></dxo-selection>
+                <dxi-column dataField="orderNo" caption="ORDER NO."></dxi-column>
+                <dxi-column dataField="supplier" caption="SUPPLIER"></dxi-column>
+                <dxi-column dataField="amount" caption="AMOUNT" format="currency"></dxi-column>
+                <dxi-column dataField="orderDate" caption="ORDER DATE"></dxi-column>
+              </dx-data-grid>
+            </div>
+          </dxi-item>
+          <dxi-item>
+            <div class="pane-content form-pane">
+              <!-- Detail Form inside -->
+              <dx-form
+                [formData]="selectedOrder"
+                [colCount]="2"
+                labelLocation="top"
+                [showColonAfterLabel]="false">
+                <dxi-item dataField="poNumber" caption="PO Number"></dxi-item>
+                <dxi-item dataField="orderDate" caption="Order Date"></dxi-item>
+                
+                <dxi-item dataField="supplier" caption="Supplier">
+                  <dxi-validation-rule type="required" message="Required field"></dxi-validation-rule>
+                </dxi-item>
+                <dxi-item dataField="supplierName" caption="Supplier Name"></dxi-item>
+
+                <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
+                
+                <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="total-amount-box"></dxi-item>
+                
+                <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
+                  <dx-form [formData]="selectedOrder" [colCount]="2">
+                     <dxi-item dataField="reviewer1" caption="Reviewer 1" labelLocation="top"></dxi-item>
+                     <dxi-item dataField="reviewer2" caption="Reviewer 2" labelLocation="top"></dxi-item>
+                     <dxi-item dataField="approver" caption="Approver" labelLocation="top"></dxi-item>
+                  </dx-form>
+                </dxi-item>
+              </dx-form>
+            </div>
+          </dxi-item>
+        </dx-splitter>
+      </dxi-item>
+      
+      <dxi-item>
+        <div class="pane-content bottom-pane">
+          <h4 class="pane-title">Line Items: {{ lineItems.length }}</h4>
+          <dx-data-grid
+            [dataSource]="lineItems"
+            [showBorders]="true"
+            [rowAlternationEnabled]="true"
+            height="calc(100% - 30px)">
+            <dxi-column dataField="itemNo" caption="#"></dxi-column>
+            <dxi-column dataField="item" caption="Item"></dxi-column>
+            <dxi-column dataField="unit" caption="Unit"></dxi-column>
+            <dxi-column dataField="unitPrice" caption="Unit Price" format="currency"></dxi-column>
+            <dxi-column dataField="taxCode" caption="Tax Code"></dxi-column>
+            <dxi-column dataField="qty" caption="Quantity"></dxi-column>
+            <dxi-column dataField="amount" caption="Amount" format="currency"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </dxi-item>
+    </dx-splitter>
+  </div>
+</div>

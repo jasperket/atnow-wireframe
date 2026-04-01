@@ -1,0 +1,76 @@
+<app-header [showBackButton]="true"></app-header>
+
+<div class="page-container">
+  <div class="header-toolbar-container">
+    <dx-toolbar>
+      <dxi-item location="before">
+        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" class="custom-btn top-btn teal-btn-solid"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="more" stylingMode="text" class="custom-btn icon-only"></dx-button>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+  <div class="splitter-wrapper">
+    <dx-splitter orientation="horizontal">
+      <dxi-item [size]="'60%'">
+        <div class="list-container">
+          <dx-data-grid
+            [dataSource]="items"
+            [showBorders]="true"
+            [columnAutoWidth]="true"
+            [rowAlternationEnabled]="true"
+            height="100%"
+            (onSelectionChanged)="onSelectionChanged($event)">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-paging [pageSize]="20"></dxo-paging>
+            <dxi-column dataField="itemCode" caption="Item Code"></dxi-column>
+            <dxi-column dataField="itemName" caption="Item Name"></dxi-column>
+            <dxi-column dataField="specs" caption="Specs"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </dxi-item>
+      
+      <dxi-item>
+        <div class="form-container">
+          <dx-form
+            [formData]="selectedItem"
+            [colCount]="2"
+            labelLocation="top"
+            [showColonAfterLabel]="false">
+            <dxi-item dataField="itemCode" caption="Item Code">
+              <dxi-validation-rule type="required" message="Item Code is required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="itemName" caption="Item Name">
+              <dxi-validation-rule type="required" message="Item Name is required"></dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="specs" caption="Specification" [colSpan]="2"></dxi-item>
+            <dxi-item dataField="unit" caption="Unit" editorType="dxSelectBox" [editorOptions]="{ items: ['PCS', 'BOX', 'KG', 'LBS'], searchEnabled: true }"></dxi-item>
+            <dxi-item dataField="label1" caption="Label"></dxi-item>
+            <dxi-item dataField="forTrading" caption="For Trading" editorType="dxCheckBox" [colSpan]="1"></dxi-item>
+            <dxi-item dataField="label2" caption="Label"></dxi-item>
+          </dx-form>
+        </div>
+      </dxi-item>
+    </dx-splitter>
+  </div>
+</div>

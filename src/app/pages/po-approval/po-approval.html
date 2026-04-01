@@ -1,0 +1,47 @@
+<app-header [showBackButton]="true"></app-header>
+<div class="page-container">
+  <div class="header-toolbar-container">
+    <dx-toolbar>
+      <dxi-item location="before">
+        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" class="custom-btn teal-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button text="BUTTON" stylingMode="outlined" class="custom-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
+      </dxi-item>
+      <dxi-item location="after">
+        <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+  <div class="entry-list-container">
+    <dx-data-grid
+      [dataSource]="purchaseOrders"
+      [showBorders]="true"
+      [columnAutoWidth]="true"
+      [rowAlternationEnabled]="true"
+      height="100%">
+      
+      <dxo-selection mode="multiple" showCheckBoxesMode="always"></dxo-selection>
+      <dxo-paging [pageSize]="10"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]" [showInfo]="false"></dxo-pager>
+
+      <dxi-column dataField="orderNo" caption="Order No"></dxi-column>
+      <dxi-column dataField="supplier" caption="Supplier"></dxi-column>
+      <dxi-column dataField="orderDate" caption="Order Date"></dxi-column>
+      <dxi-column dataField="orderAmount" caption="Order Amount" format="currency"></dxi-column>
+      <dxi-column dataField="preparedBy" caption="Prepared By"></dxi-column>
+    </dx-data-grid>
+  </div>
+</div>
