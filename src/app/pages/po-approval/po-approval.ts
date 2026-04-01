@@ -10,6 +10,7 @@ import { StorageService } from '../../services/storage.service';
 export class PoApproval implements OnInit {
   purchaseOrders: any[] = [];
   isReadOnly: boolean = true;
+  selectedRowKeys: any[] = [];
   private STORAGE_KEY = 'po_approval_data';
 
   constructor(private storageService: StorageService) {}
@@ -51,9 +52,10 @@ export class PoApproval implements OnInit {
   }
 
   onDelete() {
-    // Multi-delete for selected rows (assuming 'selected' property exists or similar)
-    // For simplicity, let's filter out anything selected.
-    this.purchaseOrders = this.purchaseOrders.filter(po => !po.selected); 
+    if (this.selectedRowKeys.length === 0) return;
+
+    this.purchaseOrders = this.purchaseOrders.filter(po => !this.selectedRowKeys.includes(po.id));
     this.storageService.setData(this.STORAGE_KEY, this.purchaseOrders);
+    this.selectedRowKeys = [];
   }
 }
