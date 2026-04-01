@@ -4,13 +4,16 @@
   <div class="header-toolbar-container">
     <dx-toolbar>
       <dxi-item location="before">
-        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" class="custom-btn top-btn teal-btn-solid"></dx-button>
+        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" class="custom-btn top-btn teal-btn-solid" (onClick)="onNew()"></dx-button>
+      </dxi-item>
+       <dxi-item location="before">
+        <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedItem || !isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedItem" (onClick)="onDelete()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
@@ -56,7 +59,8 @@
             [formData]="selectedItem"
             [colCount]="2"
             labelLocation="top"
-            [showColonAfterLabel]="false">
+            [showColonAfterLabel]="false"
+            [readOnly]="isReadOnly">
             <dxi-item dataField="itemCode" caption="Item Code">
               <dxi-validation-rule type="required" message="Item Code is required"></dxi-validation-rule>
             </dxi-item>
@@ -64,7 +68,7 @@
               <dxi-validation-rule type="required" message="Item Name is required"></dxi-validation-rule>
             </dxi-item>
             <dxi-item dataField="specs" caption="Specification" [colSpan]="2"></dxi-item>
-            <dxi-item dataField="unit" caption="Unit" editorType="dxSelectBox" [editorOptions]="{ items: ['PCS', 'BOX', 'KG', 'LBS'], searchEnabled: true }"></dxi-item>
+            <dxi-item dataField="unit" caption="Unit" editorType="dxSelectBox" [editorOptions]="{ items: ['PCS', 'BOX', 'KG', 'LBS'], searchEnabled: true, readOnly: isReadOnly }"></dxi-item>
             <dxi-item dataField="label1" caption="Label"></dxi-item>
             <dxi-item dataField="forTrading" caption="For Trading" editorType="dxCheckBox" [colSpan]="1"></dxi-item>
             <dxi-item dataField="label2" caption="Label"></dxi-item>
