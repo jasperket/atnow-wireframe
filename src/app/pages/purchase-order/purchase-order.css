@@ -67,8 +67,25 @@
 }
 
 .pane-title {
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 14px;
   color: #555;
   font-weight: 600;
+}
+
+.grid-header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.line-item-actions {
+  display: flex;
+  gap: 5px;
+}
+
+::ng-deep .sm-btn {
+  font-size: 11px;
+  padding: 2px 8px;
 }

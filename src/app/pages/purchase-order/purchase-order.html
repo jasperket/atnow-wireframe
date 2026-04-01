@@ -4,13 +4,16 @@
   <div class="header-toolbar-container">
     <dx-toolbar>
       <dxi-item location="before">
-        <dx-button icon="add" text="NEW" stylingMode="contained" class="custom-btn teal-btn-solid"></dx-button>
+        <dx-button icon="add" text="NEW" stylingMode="contained" class="custom-btn teal-btn-solid" (onClick)="onNew()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder || !isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
+      </dxi-item>
+      <dxi-item location="before">
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder" (onClick)="onDelete()"></dx-button>
       </dxi-item>
       <dxi-item location="before">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
@@ -57,7 +60,8 @@
                 [formData]="selectedOrder"
                 [colCount]="2"
                 labelLocation="top"
-                [showColonAfterLabel]="false">
+                [showColonAfterLabel]="false"
+                [readOnly]="isReadOnly">
                 <dxi-item dataField="poNumber" caption="PO Number"></dxi-item>
                 <dxi-item dataField="orderDate" caption="Order Date"></dxi-item>
                 
@@ -66,12 +70,12 @@
                 </dxi-item>
                 <dxi-item dataField="supplierName" caption="Supplier Name"></dxi-item>
 
-                <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
+                 <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
                 
                 <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="total-amount-box"></dxi-item>
                 
                 <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
-                  <dx-form [formData]="selectedOrder" [colCount]="2">
+                  <dx-form [formData]="selectedOrder" [colCount]="2" [readOnly]="isReadOnly">
                      <dxi-item dataField="reviewer1" caption="Reviewer 1" labelLocation="top"></dxi-item>
                      <dxi-item dataField="reviewer2" caption="Reviewer 2" labelLocation="top"></dxi-item>
                      <dxi-item dataField="approver" caption="Approver" labelLocation="top"></dxi-item>
@@ -85,19 +89,28 @@
       
       <dxi-item>
         <div class="pane-content bottom-pane">
-          <h4 class="pane-title">Line Items: {{ lineItems.length }}</h4>
+          <div class="grid-header-toolbar">
+             <h4 class="pane-title">Line Items: {{ lineItems.length }}</h4>
+             <div class="line-item-actions">
+               <dx-button icon="edit" text="EDIT" stylingMode="text" class="custom-btn sm-btn" [disabled]="!isLineItemsReadOnly" (onClick)="onEditLineItems()"></dx-button>
+               <dx-button icon="add" text="NEW" stylingMode="text" class="custom-btn sm-btn" [disabled]="isLineItemsReadOnly" (onClick)="onNewLineItem()"></dx-button>
+               <dx-button icon="trash" text="DELETE" stylingMode="text" class="custom-btn sm-btn" [disabled]="isLineItemsReadOnly" (onClick)="onDeleteLineItem()"></dx-button>
+             </div>
+          </div>
           <dx-data-grid
             [dataSource]="lineItems"
             [showBorders]="true"
             [rowAlternationEnabled]="true"
-            height="calc(100% - 30px)">
-            <dxi-column dataField="itemNo" caption="#"></dxi-column>
+            height="calc(100% - 40px)"
+            (onRowUpdated)="onRowUpdated($event)">
+            <dxo-editing [allowUpdating]="!isLineItemsReadOnly" [allowAdding]="false" [allowDeleting]="false" mode="cell"></dxo-editing>
+            <dxi-column dataField="itemNo" caption="#" [allowEditing]="false"></dxi-column>
             <dxi-column dataField="item" caption="Item"></dxi-column>
             <dxi-column dataField="unit" caption="Unit"></dxi-column>
             <dxi-column dataField="unitPrice" caption="Unit Price" format="currency"></dxi-column>
             <dxi-column dataField="taxCode" caption="Tax Code"></dxi-column>
             <dxi-column dataField="qty" caption="Quantity"></dxi-column>
-            <dxi-column dataField="amount" caption="Amount" format="currency"></dxi-column>
+            <dxi-column dataField="amount" caption="Amount" format="currency" [allowEditing]="false"></dxi-column>
           </dx-data-grid>
         </div>
       </dxi-item>
