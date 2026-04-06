@@ -5,52 +5,21 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard',
   template: `
     <app-header></app-header>
-    <div class="dashboard-page">
-      <div class="card-grid">
+    <div class="d-flex justify-content-center bg-light" style="min-height: calc(100vh - 50px); padding: 50px 20px;">
+      <div class="row w-100 justify-content-center" style="max-width: 1000px;">
         @for (item of modules; track item.id) {
-          <app-card 
-            [icon]="item.icon" 
-            [label]="item.label" 
-            (cardClick)="onModuleClick(item.id)">
-          </app-card>
+          <div class="col-12 col-sm-6 col-md-4 mb-4">
+            <app-card 
+              [icon]="item.icon" 
+              [label]="item.label" 
+              (cardClick)="onModuleClick(item.id)">
+            </app-card>
+          </div>
         }
       </div>
     </div>
   `,
-  styles: [`
-    .dashboard-page {
-      padding: 50px 20px;
-      display: flex;
-      justify-content: center;
-      min-height: calc(100vh - 50px);
-      background-color: #f5f5f5;
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      max-width: 1000px;
-      align-content: center;
-    }
-
-    @media (max-width: 768px) {
-      .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-      .dashboard-page {
-        padding: 30px 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-    }
-  `],
+  styles: [],
   standalone: false
 })
 export class DashboardComponent {

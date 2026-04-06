@@ -1,34 +1,34 @@
 <app-header [showBackButton]="true"></app-header>
-<div class="page-container">
-  <div class="header-toolbar-container">
+<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
+  <div class="px-4 py-2 bg-white border-bottom">
     <dx-toolbar>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" class="custom-btn teal-btn" (onClick)="onApprove()"></dx-button>
+        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" (onClick)="onApprove()"></dx-button>
       </dxi-item>
        <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!isReadOnly" (onClick)="onEdit()"></dx-button>
+        <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="!isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="add" text="NEW" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onNew()"></dx-button>
+        <dx-button icon="add" text="NEW" stylingMode="outlined" (onClick)="onNew()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onDelete()"></dx-button>
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" (onClick)="onDelete()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="export" text="EXPORT" stylingMode="outlined"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
+        <dx-button icon="refresh" stylingMode="text"></dx-button>
       </dxi-item>
       <dxi-item location="after">
-        <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
+        <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
       </dxi-item>
       <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+        <dx-button icon="filter" text="STATUS" stylingMode="outlined"></dx-button>
       </dxi-item>
     </dx-toolbar>
   </div>
-  <div class="entry-list-container">
+  <div class="flex-grow-1 p-0 bg-white overflow-hidden">
     <dx-data-grid
       [dataSource]="purchaseOrders"
       [showBorders]="true"

@@ -1,44 +1,44 @@
 <app-header [showBackButton]="true"></app-header>
 
-<div class="page-container">
-  <div class="header-toolbar-container">
+<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
+  <div class="px-4 py-2 bg-white border-bottom">
     <dx-toolbar>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="add" text="NEW" stylingMode="contained" class="custom-btn teal-btn-solid" (onClick)="onNew()"></dx-button>
+        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" (onClick)="onNew()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder || !isReadOnly" (onClick)="onEdit()"></dx-button>
+        <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="!selectedOrder || !isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
+        <dx-button icon="save" text="SAVE" stylingMode="outlined" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder" (onClick)="onDelete()"></dx-button>
+        <dx-button icon="trash" text="DELETE" stylingMode="outlined" [disabled]="!selectedOrder" (onClick)="onDelete()"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
+        <dx-button icon="export" text="EXPORT" stylingMode="outlined"></dx-button>
       </dxi-item>
       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
+        <dx-button icon="refresh" stylingMode="text"></dx-button>
       </dxi-item>
       <dxi-item location="after">
-        <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
+        <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
       </dxi-item>
       <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+        <dx-button icon="filter" text="STATUS" stylingMode="outlined"></dx-button>
       </dxi-item>
       <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="event" text="DATE" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
+        <dx-button icon="event" text="DATE" stylingMode="outlined"></dx-button>
       </dxi-item>
     </dx-toolbar>
   </div>
 
-  <div class="splitter-wrapper">
+  <div class="flex-grow-1 overflow-hidden h-100">
     <dx-splitter orientation="vertical">
       <dxi-item [size]="'55%'">
         <dx-splitter [orientation]="isMobile ? 'vertical' : 'horizontal'">
           <dxi-item [size]="'65%'">
-            <div class="pane-content list-pane">
+            <div class="h-100 p-2 bg-white">
               <dx-data-grid
                 [dataSource]="orders"
                 [showBorders]="true"
@@ -55,7 +55,7 @@
             </div>
           </dxi-item>
           <dxi-item>
-            <div class="pane-content form-pane">
+            <div class="h-100 p-2 bg-white overflow-auto">
               <!-- Detail Form inside -->
               <dx-form
                 [formData]="selectedOrder"
@@ -73,7 +73,7 @@
 
                  <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
                 
-                <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="total-amount-box"></dxi-item>
+                <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="bg-light p-2 rounded my-3 fw-bold"></dxi-item>
                 
                 <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
                   <dx-form [formData]="selectedOrder" [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }" [readOnly]="isReadOnly">
@@ -89,13 +89,13 @@
       </dxi-item>
       
       <dxi-item>
-        <div class="pane-content bottom-pane">
-          <div class="grid-header-toolbar">
-             <h4 class="pane-title">Line Items: {{ lineItems.length }}</h4>
-             <div class="line-item-actions">
-               <dx-button icon="edit" text="EDIT" stylingMode="text" class="custom-btn sm-btn" [disabled]="!isLineItemsReadOnly" (onClick)="onEditLineItems()"></dx-button>
-               <dx-button icon="add" text="NEW" stylingMode="text" class="custom-btn sm-btn" [disabled]="isLineItemsReadOnly" (onClick)="onNewLineItem()"></dx-button>
-               <dx-button icon="trash" text="DELETE" stylingMode="text" class="custom-btn sm-btn" [disabled]="isLineItemsReadOnly" (onClick)="onDeleteLineItem()"></dx-button>
+        <div class="h-100 p-2 bg-white">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+             <h4 class="m-0 fs-6 text-secondary fw-semibold">Line Items: {{ lineItems.length }}</h4>
+             <div class="d-flex gap-1">
+               <dx-button icon="edit" text="EDIT" stylingMode="text" [disabled]="!isLineItemsReadOnly" (onClick)="onEditLineItems()"></dx-button>
+               <dx-button icon="add" text="NEW" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onNewLineItem()"></dx-button>
+               <dx-button icon="trash" text="DELETE" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onDeleteLineItem()"></dx-button>
              </div>
           </div>
           <dx-data-grid
