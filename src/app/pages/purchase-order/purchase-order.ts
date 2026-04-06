@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
@@ -14,12 +14,15 @@ export class PurchaseOrder implements OnInit {
   
   isReadOnly: boolean = true;
   isLineItemsReadOnly: boolean = true;
+  
+  isMobile: boolean = false;
 
   private STORAGE_KEY = 'purchase_orders';
 
   constructor(private storageService: StorageService) {}
 
   ngOnInit() {
+    this.checkScreenSize();
     const defaultOrders = [
       { id: 1, orderNo: 'ORD-1001', supplier: 'Tech Corp', amount: 15000, orderDate: '02/10/2026', poNumber: 'New Order', supplierName: 'Tech Corporation Ltd.', reviewer1: 'Alice', reviewer2: 'Bob', approver: 'Charlie', lineItems: [
         { id: 1, itemNo: 1, item: 'Laptop Pro 15"', unit: 'PCS', unitPrice: 1500, taxCode: 'P-VAT', qty: 10, amount: 15000 },
@@ -145,5 +148,14 @@ export class PurchaseOrder implements OnInit {
   onRowUpdated(e: any) {
     // DevExtreme grid event to update amount
     e.data.amount = e.data.qty * e.data.unitPrice;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth < 768;
   }
 }

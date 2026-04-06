@@ -2,28 +2,28 @@
 <div class="page-container">
   <div class="header-toolbar-container">
     <dx-toolbar>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" class="custom-btn teal-btn" (onClick)="onApprove()"></dx-button>
       </dxi-item>
-       <dxi-item location="before">
+       <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="add" text="NEW" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onNew()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" (onClick)="onDelete()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
       </dxi-item>
       <dxi-item location="after">
         <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item location="after" locateInMenu="auto">
         <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
       </dxi-item>
     </dx-toolbar>
@@ -33,6 +33,7 @@
       [dataSource]="purchaseOrders"
       [showBorders]="true"
       [columnAutoWidth]="true"
+      [columnHidingEnabled]="true"
       [rowAlternationEnabled]="true"
       [(selectedRowKeys)]="selectedRowKeys"
       keyExpr="id"

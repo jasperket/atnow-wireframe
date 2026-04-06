@@ -3,38 +3,38 @@
 <div class="page-container">
   <div class="header-toolbar-container">
     <dx-toolbar>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="add" text="NEW" stylingMode="contained" type="default" class="custom-btn top-btn teal-btn-solid" (onClick)="onNew()"></dx-button>
       </dxi-item>
-       <dxi-item location="before">
+       <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedItem || !isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedItem" (onClick)="onDelete()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
       </dxi-item>
       <dxi-item location="after">
         <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item location="after" locateInMenu="auto">
         <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item location="after" locateInMenu="auto">
         <dx-button icon="more" stylingMode="text" class="custom-btn icon-only"></dx-button>
       </dxi-item>
     </dx-toolbar>
   </div>
 
   <div class="splitter-wrapper">
-    <dx-splitter orientation="horizontal">
+    <dx-splitter [orientation]="isMobile ? 'vertical' : 'horizontal'">
       <dxi-item [size]="'60%'">
         <div class="list-container">
           <dx-data-grid
@@ -42,6 +42,7 @@
             [showBorders]="true"
             [columnAutoWidth]="true"
             [rowAlternationEnabled]="true"
+            [columnHidingEnabled]="true"
             height="100%"
             (onSelectionChanged)="onSelectionChanged($event)">
             <dxo-selection mode="single"></dxo-selection>
@@ -57,7 +58,7 @@
         <div class="form-container">
           <dx-form
             [formData]="selectedItem"
-            [colCount]="2"
+            [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
             labelLocation="top"
             [showColonAfterLabel]="false"
             [readOnly]="isReadOnly">

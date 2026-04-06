@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 
 @Component({
@@ -11,11 +11,13 @@ export class ItemSetup implements OnInit {
   items: any[] = [];
   selectedItem: any = null;
   isReadOnly: boolean = true;
+  isMobile: boolean = false;
   private STORAGE_KEY = 'item_setup_data';
 
   constructor(private storageService: StorageService) {}
 
   ngOnInit() {
+    this.checkScreenSize();
     const defaultData = [
       { id: 1, itemCode: 'ITM-001', itemName: 'Laptop Proc', specs: 'Intel i7 16GB', unit: 'PCS', forTrading: true, label1: 'Standard', label2: 'IT' },
       { id: 2, itemCode: 'ITM-002', itemName: 'Wireless Mouse', specs: 'Bluetooth 5.0', unit: 'PCS', forTrading: true, label1: 'Accessory', label2: 'Peripherals' },
@@ -84,5 +86,14 @@ export class ItemSetup implements OnInit {
     } else {
       this.selectedItem = null;
     }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth < 768;
   }
 }

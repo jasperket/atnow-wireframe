@@ -3,31 +3,31 @@
 <div class="page-container">
   <div class="header-toolbar-container">
     <dx-toolbar>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="add" text="NEW" stylingMode="contained" class="custom-btn teal-btn-solid" (onClick)="onNew()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="edit" text="EDIT" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder || !isReadOnly" (onClick)="onEdit()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="save" text="SAVE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="trash" text="DELETE" stylingMode="outlined" class="custom-btn top-btn" [disabled]="!selectedOrder" (onClick)="onDelete()"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="export" text="EXPORT" stylingMode="outlined" class="custom-btn top-btn"></dx-button>
       </dxi-item>
-      <dxi-item location="before">
+      <dxi-item location="before" locateInMenu="auto">
         <dx-button icon="refresh" stylingMode="text" class="custom-btn icon-only"></dx-button>
       </dxi-item>
       <dxi-item location="after">
         <dx-text-box mode="search" placeholder="" width="250" class="search-box"></dx-text-box>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item location="after" locateInMenu="auto">
         <dx-button icon="filter" text="STATUS" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item location="after" locateInMenu="auto">
         <dx-button icon="event" text="DATE" stylingMode="outlined" class="custom-btn xs-btn"></dx-button>
       </dxi-item>
     </dx-toolbar>
@@ -36,13 +36,14 @@
   <div class="splitter-wrapper">
     <dx-splitter orientation="vertical">
       <dxi-item [size]="'55%'">
-        <dx-splitter orientation="horizontal">
+        <dx-splitter [orientation]="isMobile ? 'vertical' : 'horizontal'">
           <dxi-item [size]="'65%'">
             <div class="pane-content list-pane">
               <dx-data-grid
                 [dataSource]="orders"
                 [showBorders]="true"
                 [rowAlternationEnabled]="true"
+                [columnHidingEnabled]="true"
                 height="100%"
                 (onSelectionChanged)="onSelectionChanged($event)">
                 <dxo-selection mode="single"></dxo-selection>
@@ -58,7 +59,7 @@
               <!-- Detail Form inside -->
               <dx-form
                 [formData]="selectedOrder"
-                [colCount]="2"
+                [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
                 labelLocation="top"
                 [showColonAfterLabel]="false"
                 [readOnly]="isReadOnly">
@@ -75,7 +76,7 @@
                 <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="total-amount-box"></dxi-item>
                 
                 <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
-                  <dx-form [formData]="selectedOrder" [colCount]="2" [readOnly]="isReadOnly">
+                  <dx-form [formData]="selectedOrder" [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }" [readOnly]="isReadOnly">
                      <dxi-item dataField="reviewer1" caption="Reviewer 1" labelLocation="top"></dxi-item>
                      <dxi-item dataField="reviewer2" caption="Reviewer 2" labelLocation="top"></dxi-item>
                      <dxi-item dataField="approver" caption="Approver" labelLocation="top"></dxi-item>
@@ -101,6 +102,7 @@
             [dataSource]="lineItems"
             [showBorders]="true"
             [rowAlternationEnabled]="true"
+            [columnHidingEnabled]="true"
             height="calc(100% - 40px)"
             (onRowUpdated)="onRowUpdated($event)">
             <dxo-editing [allowUpdating]="!isLineItemsReadOnly" [allowAdding]="false" [allowDeleting]="false" mode="cell"></dxo-editing>
