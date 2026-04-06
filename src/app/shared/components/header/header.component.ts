@@ -3,113 +3,41 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-header',
   template: `
-    <dx-toolbar class="header-toolbar">
+    <dx-toolbar class="d-flex align-items-center px-4" style="height: 50px; background: linear-gradient(90deg, #0ba3ac 0%, #76ca62 100%); color: white; z-index: 1000;">
       <dxi-item location="before">
-        <div *dxTemplate class="header-item header-nav-group">
-          <button class="home-button" routerLink="/dashboard">
-            <lucide-icon name="home" class="home-icon" [size]="36" color="#333"></lucide-icon>
+        <div *dxTemplate class="d-flex align-items-center gap-2">
+          <button class="btn btn-link p-1 d-flex align-items-center justify-content-center text-decoration-none border-0 hover-opacity" routerLink="/dashboard">
+            <lucide-icon name="home" [size]="28" color="#333" class="d-flex align-items-center justify-content-center"></lucide-icon>
           </button>
           
           @if (showBackButton) {
-            <button class="home-button" [routerLink]="backRoute">
-              <lucide-icon name="arrow-left" class="home-icon" [size]="36" color="#333"></lucide-icon>
+            <button class="btn btn-link p-1 d-flex align-items-center justify-content-center text-decoration-none border-0 hover-opacity" [routerLink]="backRoute">
+              <lucide-icon name="arrow-left" [size]="28" color="#333" class="d-flex align-items-center justify-content-center"></lucide-icon>
             </button>
           }
         </div>
       </dxi-item>
 
       <dxi-item location="after">
-        <div *dxTemplate class="header-item">
-          <div class="user-info" routerLink="/login">
-            <div class="user-avatar text-black">
+        <div *dxTemplate class="d-flex align-items-center">
+          <div class="d-flex flex-row align-items-center gap-2 cursor-pointer text-decoration-none" style="cursor: pointer;" routerLink="/login">
+            <div class="d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
               <lucide-icon name="circle-user" [size]="36" color="#000"></lucide-icon>
             </div>
-            <span class="user-name">System Administrator</span>
+            <span class="text-dark fw-bold text-nowrap" style="font-size: 14px;">System Administrator</span>
           </div>
         </div>
       </dxi-item>
     </dx-toolbar>
   `,
   styles: [`
-    ::ng-deep .header-toolbar {
-      width: 100%;
-      height: 50px;
-      background: linear-gradient(90deg, #0ba3ac 0%, #76ca62 100%);
-      padding: 0 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      color: white; /* For dropdowns if utilized */
-    }
-
-    ::ng-deep .header-toolbar .dx-toolbar-items-container {
-      height: 100%;
-    }
-
-    ::ng-deep .header-toolbar .dx-toolbar-item {
-      display: flex; /* Force dev-extreme wrapper to flex */
-      align-items: center;
-      height: 100%;
-    }
-
-    .header-item {
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
-
-    .header-nav-group {
-      gap: 15px;
-    }
-
-    .home-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px;
-      border-radius: 4px;
+    .hover-opacity {
       transition: background 0.3s;
+      background: none;
     }
-
-    .home-button:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      cursor: pointer;
-    }
-
-    .user-avatar {
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .user-name {
-      color: #000;
-      font-size: 10px;
-      font-weight: 600;
-      line-height: 1;
-    }
-
-    .text-black {
-      color: #000;
-    }
-
-    .home-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    
+    .hover-opacity:hover {
+      background: rgba(255,255,255,0.2) !important;
     }
   `],
   standalone: false
