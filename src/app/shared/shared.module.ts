@@ -19,10 +19,17 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CardComponent } from './components/card/card.component';
 
+import { ListEntryLayoutComponent } from './layouts/list-entry/list-entry.layout';
+import { MasterEntryLayoutComponent } from './layouts/master-entry/master-entry.layout';
+import { MasterDetailEntryLayoutComponent } from './layouts/master-detail-entry/master-detail-entry.layout';
+
 @NgModule({
   declarations: [
     HeaderComponent,
-    CardComponent
+    CardComponent,
+    ListEntryLayoutComponent,
+    MasterEntryLayoutComponent,
+    MasterDetailEntryLayoutComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +64,10 @@ import { CardComponent } from './components/card/card.component';
     DxPopupModule,
     DxTemplateModule,
     HeaderComponent,
-    CardComponent
+    CardComponent,
+    ListEntryLayoutComponent,
+    MasterEntryLayoutComponent,
+    MasterDetailEntryLayoutComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

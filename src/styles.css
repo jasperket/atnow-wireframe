@@ -12,3 +12,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Custom Layout Elements Display Defaults */
+list-content, master-pane, detail-pane, line-items-pane, outside-content {
+  display: block;
+  height: 100%;
+}
+
+toolbar-left, toolbar-right {
+  display: flex !important;
+  gap: 0.5rem; /* Equivalent to Bootstrap gap-2 */
+}

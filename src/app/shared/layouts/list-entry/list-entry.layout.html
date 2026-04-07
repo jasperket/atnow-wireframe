@@ -1,0 +1,68 @@
+<app-header [showBackButton]="showBackButton"></app-header>
+
+<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
+  <div class="px-4 py-2 bg-white border-bottom flex-shrink-0">
+    <dx-toolbar>
+      @if (showApprove) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" [disabled]="disableApprove" (onClick)="approve.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showNew) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="add" text="NEW" stylingMode="contained" type="default" [disabled]="disableNew" (onClick)="new.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showEdit) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="disableEdit" (onClick)="edit.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showSave) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="save" text="SAVE" stylingMode="outlined" [disabled]="disableSave" (onClick)="save.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showDelete) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="trash" text="DELETE" stylingMode="outlined" [disabled]="disableDelete" (onClick)="delete.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showExport) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="export" text="EXPORT" stylingMode="outlined" [disabled]="disableExport" (onClick)="export.emit()"></dx-button>
+        </dxi-item>
+      }
+      @if (showRefresh) {
+        <dxi-item location="before" locateInMenu="auto">
+          <dx-button icon="refresh" stylingMode="text" [disabled]="disableRefresh" (onClick)="refresh.emit()"></dx-button>
+        </dxi-item>
+      }
+
+      <dxi-item location="before" locateInMenu="auto">
+        <ng-content select="toolbar-left"></ng-content>
+      </dxi-item>
+
+      @if (showSearch) {
+        <dxi-item location="after">
+          <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
+        </dxi-item>
+      }
+      @if (showFilter) {
+        <dxi-item location="after" locateInMenu="auto">
+          <dx-button icon="filter" text="STATUS" stylingMode="outlined" (onClick)="filter.emit()"></dx-button>
+        </dxi-item>
+      }
+
+      <dxi-item location="after" locateInMenu="auto">
+        <ng-content select="toolbar-right"></ng-content>
+      </dxi-item>
+    </dx-toolbar>
+  </div>
+
+  <div class="flex-grow-1 p-0 bg-white overflow-hidden">
+    <ng-content select="list-content"></ng-content>
+  </div>
+</div>
+
+<ng-content select="outside-content"></ng-content>

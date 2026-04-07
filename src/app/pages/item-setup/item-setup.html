@@ -1,81 +1,60 @@
-<app-header [showBackButton]="true"></app-header>
+<master-entry-layout
+  [isMobile]="isMobile"
+  [showNew]="true"
+  (new)="onNew()"
+  [showEdit]="true"
+  [disableEdit]="!selectedItem || !isReadOnly"
+  (edit)="onEdit()"
+  [showSave]="true"
+  [disableSave]="isReadOnly"
+  (save)="onSave()"
+  [showDelete]="true"
+  [disableDelete]="!selectedItem"
+  (delete)="onDelete()"
+  [showExport]="true"
+  [showRefresh]="true"
+  [showSearch]="true"
+  [showFilter]="true">
 
-<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
-  <div class="px-4 py-2 bg-white border-bottom">
-    <dx-toolbar>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" (onClick)="onNew()"></dx-button>
-      </dxi-item>
-       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="!selectedItem || !isReadOnly" (onClick)="onEdit()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" [disabled]="!selectedItem" (onClick)="onDelete()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="export" text="EXPORT" stylingMode="outlined"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="refresh" stylingMode="text"></dx-button>
-      </dxi-item>
-      <dxi-item location="after">
-        <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
-      </dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="filter" text="STATUS" stylingMode="outlined"></dx-button>
-      </dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="more" stylingMode="text"></dx-button>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
+  <toolbar-right>
+    <dx-button icon="more" stylingMode="text"></dx-button>
+  </toolbar-right>
 
-  <div class="flex-grow-1 overflow-hidden h-100">
-    <dx-splitter [orientation]="isMobile ? 'vertical' : 'horizontal'">
-      <dxi-item [size]="'60%'">
-        <div class="h-100 p-2 bg-white border-end">
-          <dx-data-grid
-            [dataSource]="items"
-            [showBorders]="true"
-            [columnAutoWidth]="true"
-            [rowAlternationEnabled]="true"
-            [columnHidingEnabled]="true"
-            height="100%"
-            (onSelectionChanged)="onSelectionChanged($event)">
-            <dxo-selection mode="single"></dxo-selection>
-            <dxo-paging [pageSize]="20"></dxo-paging>
-            <dxi-column dataField="itemCode" caption="Item Code"></dxi-column>
-            <dxi-column dataField="itemName" caption="Item Name"></dxi-column>
-            <dxi-column dataField="specs" caption="Specs"></dxi-column>
-          </dx-data-grid>
-        </div>
+  <master-pane>
+    <dx-data-grid
+      [dataSource]="items"
+      [showBorders]="true"
+      [columnAutoWidth]="true"
+      [rowAlternationEnabled]="true"
+      [columnHidingEnabled]="true"
+      height="100%"
+      (onSelectionChanged)="onSelectionChanged($event)">
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-paging [pageSize]="20"></dxo-paging>
+      <dxi-column dataField="itemCode" caption="Item Code"></dxi-column>
+      <dxi-column dataField="itemName" caption="Item Name"></dxi-column>
+      <dxi-column dataField="specs" caption="Specs"></dxi-column>
+    </dx-data-grid>
+  </master-pane>
+
+  <detail-pane>
+    <dx-form
+      [formData]="selectedItem"
+      [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
+      labelLocation="top"
+      [showColonAfterLabel]="false"
+      [readOnly]="isReadOnly">
+      <dxi-item dataField="itemCode" caption="Item Code">
+        <dxi-validation-rule type="required" message="Item Code is required"></dxi-validation-rule>
       </dxi-item>
-      
-      <dxi-item>
-        <div class="h-100 p-4 bg-white overflow-auto">
-          <dx-form
-            [formData]="selectedItem"
-            [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
-            labelLocation="top"
-            [showColonAfterLabel]="false"
-            [readOnly]="isReadOnly">
-            <dxi-item dataField="itemCode" caption="Item Code">
-              <dxi-validation-rule type="required" message="Item Code is required"></dxi-validation-rule>
-            </dxi-item>
-            <dxi-item dataField="itemName" caption="Item Name">
-              <dxi-validation-rule type="required" message="Item Name is required"></dxi-validation-rule>
-            </dxi-item>
-            <dxi-item dataField="specs" caption="Specification" [colSpan]="2"></dxi-item>
-            <dxi-item dataField="unit" caption="Unit" editorType="dxSelectBox" [editorOptions]="{ items: ['PCS', 'BOX', 'KG', 'LBS'], searchEnabled: true, readOnly: isReadOnly }"></dxi-item>
-            <dxi-item dataField="label1" caption="Label"></dxi-item>
-            <dxi-item dataField="forTrading" caption="For Trading" editorType="dxCheckBox" [colSpan]="1"></dxi-item>
-            <dxi-item dataField="label2" caption="Label"></dxi-item>
-          </dx-form>
-        </div>
+      <dxi-item dataField="itemName" caption="Item Name">
+        <dxi-validation-rule type="required" message="Item Name is required"></dxi-validation-rule>
       </dxi-item>
-    </dx-splitter>
-  </div>
-</div>
+      <dxi-item dataField="specs" caption="Specification" [colSpan]="2"></dxi-item>
+      <dxi-item dataField="unit" caption="Unit" editorType="dxSelectBox" [editorOptions]="{ items: ['PCS', 'BOX', 'KG', 'LBS'], searchEnabled: true, readOnly: isReadOnly }"></dxi-item>
+      <dxi-item dataField="label1" caption="Label"></dxi-item>
+      <dxi-item dataField="forTrading" caption="For Trading" editorType="dxCheckBox" [colSpan]="1"></dxi-item>
+      <dxi-item dataField="label2" caption="Label"></dxi-item>
+    </dx-form>
+  </detail-pane>
+</master-entry-layout>
