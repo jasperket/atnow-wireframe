@@ -1,11 +1,32 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, HostListener } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
+import { MasterEntryLayoutComponent } from '../../shared/layouts/master-entry/master-entry.layout';
+import { DxButtonComponent, DxDataGridComponent, DxFormComponent } from 'devextreme-angular';
+import {
+  DxoSelectionComponent,
+  DxoPagingComponent,
+  DxiColumnComponent,
+  DxiItemComponent,
+  DxiValidationRuleComponent,
+} from 'devextreme-angular/ui/nested';
 
 @Component({
   selector: 'app-item-setup',
   templateUrl: './item-setup.html',
   styleUrls: ['./item-setup.css'],
-  standalone: false
+  standalone: true,
+  imports: [
+    MasterEntryLayoutComponent,
+    DxButtonComponent,
+    DxDataGridComponent,
+    DxoSelectionComponent,
+    DxoPagingComponent,
+    DxiColumnComponent,
+    DxFormComponent,
+    DxiItemComponent,
+    DxiValidationRuleComponent,
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ItemSetup implements OnInit {
   items: any[] = [];
@@ -19,9 +40,36 @@ export class ItemSetup implements OnInit {
   ngOnInit() {
     this.checkScreenSize();
     const defaultData = [
-      { id: 1, itemCode: 'ITM-001', itemName: 'Laptop Proc', specs: 'Intel i7 16GB', unit: 'PCS', forTrading: true, label1: 'Standard', label2: 'IT' },
-      { id: 2, itemCode: 'ITM-002', itemName: 'Wireless Mouse', specs: 'Bluetooth 5.0', unit: 'PCS', forTrading: true, label1: 'Accessory', label2: 'Peripherals' },
-      { id: 3, itemCode: 'ITM-003', itemName: 'Office Chair', specs: 'Ergonomic Black', unit: 'PCS', forTrading: false, label1: 'Furniture', label2: 'Office' },
+      {
+        id: 1,
+        itemCode: 'ITM-001',
+        itemName: 'Laptop Proc',
+        specs: 'Intel i7 16GB',
+        unit: 'PCS',
+        forTrading: true,
+        label1: 'Standard',
+        label2: 'IT',
+      },
+      {
+        id: 2,
+        itemCode: 'ITM-002',
+        itemName: 'Wireless Mouse',
+        specs: 'Bluetooth 5.0',
+        unit: 'PCS',
+        forTrading: true,
+        label1: 'Accessory',
+        label2: 'Peripherals',
+      },
+      {
+        id: 3,
+        itemCode: 'ITM-003',
+        itemName: 'Office Chair',
+        specs: 'Ergonomic Black',
+        unit: 'PCS',
+        forTrading: false,
+        label1: 'Furniture',
+        label2: 'Office',
+      },
     ];
 
     this.items = this.storageService.getData(this.STORAGE_KEY, defaultData);
@@ -48,7 +96,7 @@ export class ItemSetup implements OnInit {
       unit: 'PCS',
       forTrading: false,
       label1: '',
-      label2: ''
+      label2: '',
     };
     this.isReadOnly = false;
   }
@@ -64,7 +112,7 @@ export class ItemSetup implements OnInit {
       this.selectedItem.id = this.storageService.getNextId(this.STORAGE_KEY);
       this.items.push(this.selectedItem);
     } else {
-      const index = this.items.findIndex(i => i.id === this.selectedItem.id);
+      const index = this.items.findIndex((i) => i.id === this.selectedItem.id);
       if (index !== -1) {
         this.items[index] = { ...this.selectedItem };
       }
@@ -78,9 +126,9 @@ export class ItemSetup implements OnInit {
   onDelete() {
     if (!this.selectedItem || this.selectedItem.id === 0) return;
 
-    this.items = this.items.filter(i => i.id !== this.selectedItem.id);
+    this.items = this.items.filter((i) => i.id !== this.selectedItem.id);
     this.storageService.setData(this.STORAGE_KEY, this.items);
-    
+
     if (this.items.length > 0) {
       this.selectedItem = { ...this.items[0] };
     } else {

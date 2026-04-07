@@ -1,34 +1,19 @@
-<app-header [showBackButton]="true"></app-header>
-<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
-  <div class="px-4 py-2 bg-white border-bottom">
-    <dx-toolbar>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="check" text="APPROVE" type="default" stylingMode="outlined" (onClick)="onApprove()"></dx-button>
-      </dxi-item>
-       <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="!isReadOnly" (onClick)="onEdit()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="add" text="NEW" stylingMode="outlined" (onClick)="onNew()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" (onClick)="onDelete()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="export" text="EXPORT" stylingMode="outlined"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="refresh" stylingMode="text"></dx-button>
-      </dxi-item>
-      <dxi-item location="after">
-        <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
-      </dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="filter" text="STATUS" stylingMode="outlined"></dx-button>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
-  <div class="flex-grow-1 p-0 bg-white overflow-hidden">
+<list-entry-layout
+  [showApprove]="true"
+  (approve)="onApprove()"
+  [showEdit]="true"
+  [disableEdit]="!isReadOnly"
+  (edit)="onEdit()"
+  [showNew]="true"
+  (new)="onNew()"
+  [showDelete]="true"
+  (delete)="onDelete()"
+  [showExport]="true"
+  [showRefresh]="true"
+  [showSearch]="true"
+  [showFilter]="true">
+
+  <list-content class="w-100">
     <dx-data-grid
       [dataSource]="purchaseOrders"
       [showBorders]="true"
@@ -50,5 +35,5 @@
       <dxi-column dataField="orderAmount" caption="Order Amount" format="currency"></dxi-column>
       <dxi-column dataField="preparedBy" caption="Prepared By"></dxi-column>
     </dx-data-grid>
-  </div>
-</div>
+  </list-content>
+</list-entry-layout>

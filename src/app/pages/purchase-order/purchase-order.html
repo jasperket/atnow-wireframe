@@ -1,37 +1,25 @@
-<app-header [showBackButton]="true"></app-header>
+<master-detail-entry-layout
+  [isMobile]="isMobile"
+  [showNew]="true"
+  (new)="onNew()"
+  [showEdit]="true"
+  [disableEdit]="!selectedOrder || !isReadOnly"
+  (edit)="onEdit()"
+  [showSave]="true"
+  [disableSave]="isReadOnly"
+  (save)="onSave()"
+  [showDelete]="true"
+  [disableDelete]="!selectedOrder"
+  (delete)="onDelete()"
+  [showExport]="true"
+  [showRefresh]="true"
+  [showSearch]="true"
+  [showFilter]="true">
 
-<div class="d-flex flex-column bg-light w-100" style="height: calc(100vh - 50px);">
-  <div class="px-4 py-2 bg-white border-bottom">
-    <dx-toolbar>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="add" text="NEW" stylingMode="contained" type="default" (onClick)="onNew()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="edit" text="EDIT" stylingMode="outlined" [disabled]="!selectedOrder || !isReadOnly" (onClick)="onEdit()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="save" text="SAVE" stylingMode="outlined" [disabled]="isReadOnly" (onClick)="onSave()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="trash" text="DELETE" stylingMode="outlined" [disabled]="!selectedOrder" (onClick)="onDelete()"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="export" text="EXPORT" stylingMode="outlined"></dx-button>
-      </dxi-item>
-      <dxi-item location="before" locateInMenu="auto">
-        <dx-button icon="refresh" stylingMode="text"></dx-button>
-      </dxi-item>
-      <dxi-item location="after">
-        <dx-text-box mode="search" placeholder="" width="250"></dx-text-box>
-      </dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="filter" text="STATUS" stylingMode="outlined"></dx-button>
-      </dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
-        <dx-button icon="event" text="DATE" stylingMode="outlined"></dx-button>
-      </dxi-item>
-    </dx-toolbar>
-  </div>
+  <toolbar-left>
+    <dx-button icon="event" text="DATE" stylingMode="outlined"></dx-button>
+    
+  </toolbar-left>
 
   <ng-template #detailFormTemplate>
     <dx-form
@@ -110,71 +98,51 @@
     </dx-data-grid>
   </ng-template>
 
-  @if (!isMobile) {
-    <div class="flex-grow-1 overflow-hidden h-100">
-      <dx-splitter orientation="vertical">
-        <dxi-item [size]="'55%'">
-          <dx-splitter orientation="horizontal">
-            <dxi-item [size]="'65%'">
-              <div class="h-100 p-2 bg-white">
-                <ng-container *ngTemplateOutlet="ordersGridTemplate"></ng-container>
-              </div>
-            </dxi-item>
-            <dxi-item>
-              <div class="h-100 p-2 bg-white overflow-auto">
-                <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
-              </div>
-            </dxi-item>
-          </dx-splitter>
-        </dxi-item>
-        
-        <dxi-item>
-          <div class="h-100 p-2 bg-white">
+  <master-pane>
+    <ng-container *ngTemplateOutlet="ordersGridTemplate"></ng-container>
+  </master-pane>
+
+  <detail-pane>
+    <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
+  </detail-pane>
+
+  <line-items-pane>
+    <ng-container *ngTemplateOutlet="lineItemsGridTemplate"></ng-container>
+  </line-items-pane>
+
+  <outside-content>
+    @if (isMobile) {
+      <dx-popup
+        [(visible)]="isPopupVisible"
+        [fullScreen]="true"
+        [title]="selectedOrder?.id === 0 ? 'New Purchase Order' : 'Purchase Order Details'"
+        [showCloseButton]="true"
+        [showTitle]="true">
+        @if (isReadOnly && selectedOrder?.id !== 0) {
+          <dxi-toolbar-item
+            widget="dxButton"
+            toolbar="top"
+            location="after"
+            [options]="editButtonOptions">
+          </dxi-toolbar-item>
+        }
+        @if (!isReadOnly || selectedOrder?.id === 0) {
+          <dxi-toolbar-item
+            widget="dxButton"
+            toolbar="top"
+            location="after"
+            [options]="saveButtonOptions">
+          </dxi-toolbar-item>
+        }
+        <div *dxTemplate="let data of 'content'" class="d-flex flex-column h-100 overflow-hidden bg-light">
+          <div class="flex-shrink-0 p-3 bg-white mb-2 border-bottom overflow-auto" style="max-height: 50%;">
+            <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
+          </div>
+          <div class="flex-grow-1 p-3 bg-white d-flex flex-column overflow-hidden h-100">
             <ng-container *ngTemplateOutlet="lineItemsGridTemplate"></ng-container>
           </div>
-        </dxi-item>
-      </dx-splitter>
-    </div>
-  } @else {
-    <div class="flex-grow-1 overflow-hidden h-100">
-      <div class="h-100 p-2 bg-white">
-        <ng-container *ngTemplateOutlet="ordersGridTemplate"></ng-container>
-      </div>
-    </div>
-  }
-
-  @if (isMobile) {
-    <dx-popup
-      [(visible)]="isPopupVisible"
-      [fullScreen]="true"
-      [title]="selectedOrder?.id === 0 ? 'New Purchase Order' : 'Purchase Order Details'"
-      [showCloseButton]="true"
-      [showTitle]="true">
-      @if (isReadOnly && selectedOrder?.id !== 0) {
-        <dxi-toolbar-item
-          widget="dxButton"
-          toolbar="top"
-          location="after"
-          [options]="editButtonOptions">
-        </dxi-toolbar-item>
-      }
-      @if (!isReadOnly || selectedOrder?.id === 0) {
-        <dxi-toolbar-item
-          widget="dxButton"
-          toolbar="top"
-          location="after"
-          [options]="saveButtonOptions">
-        </dxi-toolbar-item>
-      }
-      <div *dxTemplate="let data of 'content'" class="d-flex flex-column h-100 overflow-hidden bg-light">
-        <div class="flex-shrink-0 p-3 bg-white mb-2 border-bottom overflow-auto" style="max-height: 50%;">
-          <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
         </div>
-        <div class="flex-grow-1 p-3 bg-white d-flex flex-column overflow-hidden h-100">
-          <ng-container *ngTemplateOutlet="lineItemsGridTemplate"></ng-container>
-        </div>
-      </div>
-    </dx-popup>
-  }
-
-</div>
+      </dx-popup>
+    }
+  </outside-content>
+</master-detail-entry-layout>
