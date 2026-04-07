@@ -1,14 +1,29 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { HeaderComponent } from '../../components/header/header.component';
+import {
+  DxToolbarComponent,
+  DxButtonComponent,
+  DxTextBoxComponent,
+  DxSplitterComponent,
+} from 'devextreme-angular';
+import { DxiItemComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
   selector: 'master-detail-entry-layout',
   templateUrl: './master-detail-entry.layout.html',
-  standalone: false
+  imports: [
+    HeaderComponent,
+    DxToolbarComponent,
+    DxiItemComponent,
+    DxButtonComponent,
+    DxTextBoxComponent,
+    DxSplitterComponent,
+  ],
 })
 export class MasterDetailEntryLayoutComponent {
   @Input() showBackButton: boolean = true;
   @Input() isMobile: boolean = false;
-  
+
   // Toolbar item visibility
   @Input() showApprove: boolean = false;
   @Input() showNew: boolean = false;

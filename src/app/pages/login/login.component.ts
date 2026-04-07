@@ -1,33 +1,66 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { DxTextBoxComponent, DxSelectBoxComponent, DxButtonComponent } from 'devextreme-angular';
 
 @Component({
   selector: 'app-login',
   template: `
-    <div class="d-flex flex-column align-items-center bg-white vh-100 w-100 position-relative p-0 m-0">
-      <div class="w-100 sticky-top" style="height: 40px; background: linear-gradient(90deg, #0ba3ac 0%, #76ca62 100%);"></div>
+    <div
+      class="d-flex flex-column align-items-center bg-white vh-100 w-100 position-relative p-0 m-0"
+    >
+      <div
+        class="w-100 sticky-top"
+        style="height: 40px; background: linear-gradient(90deg, #0ba3ac 0%, #76ca62 100%);"
+      ></div>
       <div class="w-100 text-center px-4" style="max-width: 400px; margin-top: 60px;">
         <h1 class="text-dark fw-bolder mb-2" style="font-size: 48px; letter-spacing: 2px;">LOGO</h1>
-        <p class="text-secondary fw-normal mb-5" style="font-size: 16px;">Unified Business Management Platform</p>
-        
+        <p class="text-secondary fw-normal mb-5" style="font-size: 16px;">
+          Unified Business Management Platform
+        </p>
+
         <form class="text-start">
-          <dx-text-box label="Username" labelMode="floating" placeholder="user001" class="mb-4"></dx-text-box>
-          
-          <dx-text-box label="Password" mode="password" labelMode="floating" placeholder="******" class="mb-4"></dx-text-box>
-          
+          <dx-text-box
+            label="Username"
+            labelMode="floating"
+            placeholder="user001"
+            class="mb-4"
+          ></dx-text-box>
+
+          <dx-text-box
+            label="Password"
+            mode="password"
+            labelMode="floating"
+            placeholder="******"
+            class="mb-4"
+          ></dx-text-box>
+
           <div class="position-relative mb-4">
-            <dx-select-box [items]="['System Administrator', 'Standard User']" label="Profile" labelMode="floating" [(value)]="profile"></dx-select-box>
+            <dx-select-box
+              [items]="['System Administrator', 'Standard User']"
+              label="Profile"
+              labelMode="floating"
+              [(value)]="profile"
+            ></dx-select-box>
           </div>
 
           <div class="d-flex justify-content-center mt-4">
-            <dx-button text="Login" width="100%" height="45" type="default" stylingMode="contained" (onClick)="onLogin()"></dx-button>
+            <dx-button
+              text="Login"
+              width="100%"
+              height="45"
+              type="default"
+              stylingMode="contained"
+              (onClick)="onLogin()"
+            ></dx-button>
           </div>
         </form>
       </div>
     </div>
   `,
   styles: [],
-  standalone: false
+  imports: [FormsModule, DxTextBoxComponent, DxSelectBoxComponent, DxButtonComponent],
+  standalone: true,
 })
 export class LoginComponent {
   username = '';

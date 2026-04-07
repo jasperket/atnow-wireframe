@@ -1,13 +1,22 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { HeaderComponent } from '../../components/header/header.component';
+import { DxToolbarComponent, DxButtonComponent, DxTextBoxComponent } from 'devextreme-angular';
+import { DxiItemComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
   selector: 'list-entry-layout',
   templateUrl: './list-entry.layout.html',
-  standalone: false
+  imports: [
+    HeaderComponent,
+    DxToolbarComponent,
+    DxiItemComponent,
+    DxButtonComponent,
+    DxTextBoxComponent,
+  ],
 })
 export class ListEntryLayoutComponent {
   @Input() showBackButton: boolean = true;
-  
+
   // Toolbar item visibility
   @Input() showApprove: boolean = false;
   @Input() showNew: boolean = false;
