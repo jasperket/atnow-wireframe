@@ -16,8 +16,23 @@ export class PurchaseOrder implements OnInit {
   isLineItemsReadOnly: boolean = true;
   
   isMobile: boolean = false;
+  isPopupVisible: boolean = false;
 
   private STORAGE_KEY = 'purchase_orders';
+
+  editButtonOptions = {
+    icon: 'edit',
+    text: 'EDIT',
+    stylingMode: 'text',
+    onClick: () => this.onEdit()
+  };
+
+  saveButtonOptions = {
+    icon: 'save',
+    text: 'SAVE',
+    stylingMode: 'text',
+    onClick: () => this.onSave()
+  };
 
   constructor(private storageService: StorageService) {}
 
@@ -50,6 +65,12 @@ export class PurchaseOrder implements OnInit {
     }
   }
 
+  onRowClick(e: any) {
+    if (this.isMobile && e.data) {
+      this.isPopupVisible = true;
+    }
+  }
+
   onNew() {
     this.selectedOrder = {
       id: 0,
@@ -67,6 +88,9 @@ export class PurchaseOrder implements OnInit {
     this.lineItems = [];
     this.isReadOnly = false;
     this.isLineItemsReadOnly = false;
+    if (this.isMobile) {
+      this.isPopupVisible = true;
+    }
   }
 
   onEdit() {

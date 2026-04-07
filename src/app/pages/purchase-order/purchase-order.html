@@ -33,89 +33,148 @@
     </dx-toolbar>
   </div>
 
-  <div class="flex-grow-1 overflow-hidden h-100">
-    <dx-splitter orientation="vertical">
-      <dxi-item [size]="'55%'">
-        <dx-splitter [orientation]="isMobile ? 'vertical' : 'horizontal'">
-          <dxi-item [size]="'65%'">
-            <div class="h-100 p-2 bg-white">
-              <dx-data-grid
-                [dataSource]="orders"
-                [showBorders]="true"
-                [rowAlternationEnabled]="true"
-                [columnHidingEnabled]="true"
-                height="100%"
-                (onSelectionChanged)="onSelectionChanged($event)">
-                <dxo-selection mode="single"></dxo-selection>
-                <dxi-column dataField="orderNo" caption="ORDER NO."></dxi-column>
-                <dxi-column dataField="supplier" caption="SUPPLIER"></dxi-column>
-                <dxi-column dataField="amount" caption="AMOUNT" format="currency"></dxi-column>
-                <dxi-column dataField="orderDate" caption="ORDER DATE"></dxi-column>
-              </dx-data-grid>
-            </div>
-          </dxi-item>
-          <dxi-item>
-            <div class="h-100 p-2 bg-white overflow-auto">
-              <!-- Detail Form inside -->
-              <dx-form
-                [formData]="selectedOrder"
-                [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
-                labelLocation="top"
-                [showColonAfterLabel]="false"
-                [readOnly]="isReadOnly">
-                <dxi-item dataField="poNumber" caption="PO Number"></dxi-item>
-                <dxi-item dataField="orderDate" caption="Order Date"></dxi-item>
-                
-                <dxi-item dataField="supplier" caption="Supplier">
-                  <dxi-validation-rule type="required" message="Required field"></dxi-validation-rule>
-                </dxi-item>
-                <dxi-item dataField="supplierName" caption="Supplier Name"></dxi-item>
-
-                 <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
-                
-                <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="bg-light p-2 rounded my-3 fw-bold"></dxi-item>
-                
-                <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
-                  <dx-form [formData]="selectedOrder" [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }" [readOnly]="isReadOnly">
-                     <dxi-item dataField="reviewer1" caption="Reviewer 1" labelLocation="top"></dxi-item>
-                     <dxi-item dataField="reviewer2" caption="Reviewer 2" labelLocation="top"></dxi-item>
-                     <dxi-item dataField="approver" caption="Approver" labelLocation="top"></dxi-item>
-                  </dx-form>
-                </dxi-item>
-              </dx-form>
-            </div>
-          </dxi-item>
-        </dx-splitter>
-      </dxi-item>
+  <ng-template #detailFormTemplate>
+    <dx-form
+      [formData]="selectedOrder"
+      [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }"
+      labelLocation="top"
+      [showColonAfterLabel]="false"
+      [readOnly]="isReadOnly">
+      <dxi-item dataField="poNumber" caption="PO Number"></dxi-item>
+      <dxi-item dataField="orderDate" caption="Order Date"></dxi-item>
       
-      <dxi-item>
-        <div class="h-100 p-2 bg-white">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-             <h4 class="m-0 fs-6 text-secondary fw-semibold">Line Items: {{ lineItems.length }}</h4>
-             <div class="d-flex gap-1">
-               <dx-button icon="edit" text="EDIT" stylingMode="text" [disabled]="!isLineItemsReadOnly" (onClick)="onEditLineItems()"></dx-button>
-               <dx-button icon="add" text="NEW" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onNewLineItem()"></dx-button>
-               <dx-button icon="trash" text="DELETE" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onDeleteLineItem()"></dx-button>
-             </div>
-          </div>
-          <dx-data-grid
-            [dataSource]="lineItems"
-            [showBorders]="true"
-            [rowAlternationEnabled]="true"
-            [columnHidingEnabled]="true"
-            height="calc(100% - 40px)"
-            (onRowUpdated)="onRowUpdated($event)">
-            <dxo-editing [allowUpdating]="!isLineItemsReadOnly" [allowAdding]="false" [allowDeleting]="false" mode="cell"></dxo-editing>
-            <dxi-column dataField="itemNo" caption="#" [allowEditing]="false"></dxi-column>
-            <dxi-column dataField="item" caption="Item"></dxi-column>
-            <dxi-column dataField="unit" caption="Unit"></dxi-column>
-            <dxi-column dataField="unitPrice" caption="Unit Price" format="currency"></dxi-column>
-            <dxi-column dataField="taxCode" caption="Tax Code"></dxi-column>
-            <dxi-column dataField="qty" caption="Quantity"></dxi-column>
-            <dxi-column dataField="amount" caption="Amount" format="currency" [allowEditing]="false"></dxi-column>
-          </dx-data-grid>
-        </div>
+      <dxi-item dataField="supplier" caption="Supplier">
+        <dxi-validation-rule type="required" message="Required field"></dxi-validation-rule>
       </dxi-item>
-    </dx-splitter>
-  </div>
+      <dxi-item dataField="supplierName" caption="Supplier Name"></dxi-item>
+
+       <dxi-item itemType="empty" [colSpan]="2"></dxi-item>
+      
+      <dxi-item itemType="group" caption="Total Amount : {{ (selectedOrder?.amount || 0) | currency }}" [colSpan]="2" cssClass="bg-light p-2 rounded my-3 fw-bold"></dxi-item>
+      
+      <dxi-item itemType="group" caption="Signatories" [colSpan]="2">
+        <dx-form [formData]="selectedOrder" [colCountByScreen]="{ lg: 2, md: 2, sm: 1, xs: 1 }" [readOnly]="isReadOnly">
+           <dxi-item dataField="reviewer1" caption="Reviewer 1" labelLocation="top"></dxi-item>
+           <dxi-item dataField="reviewer2" caption="Reviewer 2" labelLocation="top"></dxi-item>
+           <dxi-item dataField="approver" caption="Approver" labelLocation="top"></dxi-item>
+        </dx-form>
+      </dxi-item>
+    </dx-form>
+  </ng-template>
+
+  <ng-template #lineItemsGridTemplate>
+    <div class="h-100 d-flex flex-column flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center mb-2 flex-shrink-0">
+         <h4 class="m-0 fs-6 text-secondary fw-semibold">Line Items: {{ lineItems.length }}</h4>
+         <div class="d-flex gap-1">
+           <dx-button icon="edit" stylingMode="text" [disabled]="!isLineItemsReadOnly" (onClick)="onEditLineItems()"></dx-button>
+           <dx-button icon="add" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onNewLineItem()"></dx-button>
+           <dx-button icon="trash" stylingMode="text" [disabled]="isLineItemsReadOnly" (onClick)="onDeleteLineItem()"></dx-button>
+         </div>
+      </div>
+      <div class="flex-grow-1 h-100 overflow-hidden">
+        <dx-data-grid
+          [dataSource]="lineItems"
+          [showBorders]="true"
+          [rowAlternationEnabled]="true"
+          [columnHidingEnabled]="true"
+          height="100%"
+          (onRowUpdated)="onRowUpdated($event)">
+          <dxo-editing [allowUpdating]="!isLineItemsReadOnly" [allowAdding]="false" [allowDeleting]="false" mode="cell"></dxo-editing>
+          <dxi-column dataField="itemNo" caption="#" [allowEditing]="false"></dxi-column>
+          <dxi-column dataField="item" caption="Item"></dxi-column>
+          <dxi-column dataField="unit" caption="Unit"></dxi-column>
+          <dxi-column dataField="unitPrice" caption="Unit Price" format="currency"></dxi-column>
+          <dxi-column dataField="taxCode" caption="Tax Code"></dxi-column>
+          <dxi-column dataField="qty" caption="Quantity"></dxi-column>
+          <dxi-column dataField="amount" caption="Amount" format="currency" [allowEditing]="false"></dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #ordersGridTemplate>
+    <dx-data-grid
+      [dataSource]="orders"
+      [showBorders]="true"
+      [rowAlternationEnabled]="true"
+      [columnHidingEnabled]="true"
+      height="100%"
+      (onSelectionChanged)="onSelectionChanged($event)"
+      (onRowClick)="onRowClick($event)">
+      <dxo-selection mode="single"></dxo-selection>
+      <dxi-column dataField="orderNo" caption="ORDER NO."></dxi-column>
+      <dxi-column dataField="supplier" caption="SUPPLIER"></dxi-column>
+      <dxi-column dataField="amount" caption="AMOUNT" format="currency"></dxi-column>
+      <dxi-column dataField="orderDate" caption="ORDER DATE"></dxi-column>
+    </dx-data-grid>
+  </ng-template>
+
+  @if (!isMobile) {
+    <div class="flex-grow-1 overflow-hidden h-100">
+      <dx-splitter orientation="vertical">
+        <dxi-item [size]="'55%'">
+          <dx-splitter orientation="horizontal">
+            <dxi-item [size]="'65%'">
+              <div class="h-100 p-2 bg-white">
+                <ng-container *ngTemplateOutlet="ordersGridTemplate"></ng-container>
+              </div>
+            </dxi-item>
+            <dxi-item>
+              <div class="h-100 p-2 bg-white overflow-auto">
+                <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
+              </div>
+            </dxi-item>
+          </dx-splitter>
+        </dxi-item>
+        
+        <dxi-item>
+          <div class="h-100 p-2 bg-white">
+            <ng-container *ngTemplateOutlet="lineItemsGridTemplate"></ng-container>
+          </div>
+        </dxi-item>
+      </dx-splitter>
+    </div>
+  } @else {
+    <div class="flex-grow-1 overflow-hidden h-100">
+      <div class="h-100 p-2 bg-white">
+        <ng-container *ngTemplateOutlet="ordersGridTemplate"></ng-container>
+      </div>
+    </div>
+  }
+
+  @if (isMobile) {
+    <dx-popup
+      [(visible)]="isPopupVisible"
+      [fullScreen]="true"
+      [title]="selectedOrder?.id === 0 ? 'New Purchase Order' : 'Purchase Order Details'"
+      [showCloseButton]="true"
+      [showTitle]="true">
+      @if (isReadOnly && selectedOrder?.id !== 0) {
+        <dxi-toolbar-item
+          widget="dxButton"
+          toolbar="top"
+          location="after"
+          [options]="editButtonOptions">
+        </dxi-toolbar-item>
+      }
+      @if (!isReadOnly || selectedOrder?.id === 0) {
+        <dxi-toolbar-item
+          widget="dxButton"
+          toolbar="top"
+          location="after"
+          [options]="saveButtonOptions">
+        </dxi-toolbar-item>
+      }
+      <div *dxTemplate="let data of 'content'" class="d-flex flex-column h-100 overflow-hidden bg-light">
+        <div class="flex-shrink-0 p-3 bg-white mb-2 border-bottom overflow-auto" style="max-height: 50%;">
+          <ng-container *ngTemplateOutlet="detailFormTemplate"></ng-container>
+        </div>
+        <div class="flex-grow-1 p-3 bg-white d-flex flex-column overflow-hidden h-100">
+          <ng-container *ngTemplateOutlet="lineItemsGridTemplate"></ng-container>
+        </div>
+      </div>
+    </dx-popup>
+  }
+
 </div>
