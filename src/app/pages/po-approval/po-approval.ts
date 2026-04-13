@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { ListEntryLayoutComponent } from '../../shared/layouts/list-entry/list-entry.layout';
+import { ListEntryLayoutComponent } from '../../shared/layouts/list-entry/list-entry';
 import { DxDataGridComponent } from 'devextreme-angular';
 import {
   DxoSelectionComponent,

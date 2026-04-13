@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../../components/header/header';
 import {
   DxToolbarComponent,
   DxButtonComponent,
@@ -10,7 +10,7 @@ import { DxiItemComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
   selector: 'master-detail-entry-layout',
-  templateUrl: './master-detail-entry.layout.html',
+  templateUrl: './master-detail-entry.html',
   imports: [
     HeaderComponent,
     DxToolbarComponent,

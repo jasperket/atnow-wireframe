@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, HostListener } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { MasterEntryLayoutComponent } from '../../shared/layouts/master-entry/master-entry.layout';
+import { MasterEntryLayoutComponent } from '../../shared/layouts/master-entry/master-entry';
 import { DxButtonComponent, DxDataGridComponent, DxFormComponent } from 'devextreme-angular';
 import {
   DxoSelectionComponent,

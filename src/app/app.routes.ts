@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ModuleDetailComponent } from './pages/module-detail/module-detail.component';
+import { LoginComponent } from './pages/login/login';
+import { DashboardComponent } from './pages/dashboard/dashboard';
+import { ModuleDetailComponent } from './pages/module-detail/module-detail';
 import { PurchaseOrder } from './pages/purchase-order/purchase-order';
 import { PoApproval } from './pages/po-approval/po-approval';
 import { ItemSetup } from './pages/item-setup/item-setup';
