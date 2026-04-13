@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, HostListener } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { MasterDetailEntryLayoutComponent } from '../../shared/layouts/master-detail-entry/master-detail-entry.layout';
+import { MasterDetailEntryLayoutComponent } from '../../shared/layouts/master-detail-entry/master-detail-entry';
 import {
   DxButtonComponent,
   DxFormComponent,

@@ -9,8 +9,8 @@ import {
 import { DxiItemComponent } from 'devextreme-angular/ui/nested';
 
 @Component({
-  selector: 'master-detail-entry-layout',
-  templateUrl: './master-detail-entry.layout.html',
+  selector: 'master-entry-layout',
+  templateUrl: './master-entry.html',
   imports: [
     HeaderComponent,
     DxToolbarComponent,
@@ -20,7 +20,7 @@ import { DxiItemComponent } from 'devextreme-angular/ui/nested';
     DxSplitterComponent,
   ],
 })
-export class MasterDetailEntryLayoutComponent {
+export class MasterEntryLayoutComponent {
   @Input() showBackButton: boolean = true;
   @Input() isMobile: boolean = false;
 
