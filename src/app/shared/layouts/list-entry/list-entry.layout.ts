@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../../components/header/header';
 import { DxToolbarComponent, DxButtonComponent, DxTextBoxComponent } from 'devextreme-angular';
 import { DxiItemComponent } from 'devextreme-angular/ui/nested';
 
